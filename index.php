@@ -1,84 +1,22 @@
 <?php
 
-//* Combined comparison operator <=>, can determine the proper sort order.
+//* Null Coalesce Operator ??
 
-$belchers = ['Bob', 'Linda', 'Tina', 'Gene', 'Louise'];
+//$_GET['name'] = 'Bob';
 
-//* Sort them in alphabetical order (this is not new to PHP7).
-sort($belchers);
-//* Combined comparison operator <=>
-usort($belchers, function ($a, $b)
-{
-	// var_dump('a: ' . $a . ', ' . 'b: ' . $b);
-	return $a <=> $b; //* will either return -1, 0, or 1
-	// If $a is less than $b return -1
-	// If $a is equal to $b return 0
-	// If $a is greater than $b return 1
-});
+//$name = isset($_GET['name']) ? $_GET['name'] : 'nothing'; //* This is a lot to write.
 
-//* Sort in Reverse (this is not new to PHP7).
-rsort($belchers);
-//* Combined comparison operator <=>
-usort($belchers, function ($a, $b)
-{
-	return $b <=> $a;
-});
+//* ??
+//$name = $_GET['name'] ?? 'nothing';
 
-//* Sort by charachter length.
-usort($belchers, function ($a, $b)
-{
-	//var_dump('a: ' . $a . ', ' . 'b: ' . $b);
-	return strlen($a) <=> strlen($b);
-});
+//var_dump($name);
 
-//* Sort by charachter length (reverse order).
-usort($belchers, function ($a, $b)
-{
-	//var_dump('a: ' . $a . ', ' . 'b: ' . $b);
-	return strlen($b) <=> strlen($a);
-});
-class User {
-	protected $name;
-	protected $age;
+$name = "Gene Belcher";
 
-	public function __construct($name, $age) {
-		$this->name = $name;
-		$this->age = $age;
-	}
-	public function name() {
-		return $this->name;
-	}
-	public function age() {
-		return $this->age;
-	}
-}
+echo $name ?? 'Bob Belcher';
 
-class UserCollection {
-	protected $users;
-	public function __construct(array $users)
-	{
-		$this->users = $users;
-	}
-	public function users() {
-		return $this->users;
-	}
-	//* Sort this collection by name, age...
-	public function sortBy($method) {
-		usort($this->users, function($userOne, $userTwo) use ($method) {
-			return $userOne->$method() <=> $userTwo->$method();
-		});
-	}
-}
 
-$collection = new UserCollection([
-	new User('Bob', 41),
-	new User('Linda', 40),
-	new User('Tina', 13),
-	new User('Gene', 11),
-	new User('Louise', 9)
-	]);
 
-//$collection->sortBy('name');
-$collection->sortBy('age');
-var_dump($collection->users());
- ?>
+
+
+/* End of file */
